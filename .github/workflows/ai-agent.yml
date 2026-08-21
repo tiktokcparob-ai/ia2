@@ -1,0 +1,61 @@
+name: KODA-7 AI Agent
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      TG_API_ID: ${{ secrets.TG_API_ID }}
+      TG_API_HASH: ${{ secrets.TG_API_HASH }}
+      DB_PATH: koda7.db
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Restore database
+        run: |
+          if [ -f koda7.db ]; then
+            echo "Database restored from repository"
+          else
+            echo "No existing database found, will create new"
+          fi
+
+      - name: Run KODA-7 Agent
+        run: python agent.py
+
+      - name: Commit database changes
+        if: always()
+        run: |
+          git config --global user.name "KODA-7 Bot"
+          git config --global user.email "koda7@github.actions"
+          git add koda7.db koda7.log 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "🤖 Auto-save: session & task state [$(date -u +%Y-%m-%d_%H:%M)]"
+          git push || echo "Nothing to push"
