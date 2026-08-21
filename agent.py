@@ -10,9 +10,9 @@ from typing import Dict, Any
 # إعداد التسجيل
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     handlers=[
-        logging.FileHandler('koda7.log', encoding='utf-8'),
+        logging.FileHandler("koda7.log", encoding="utf-8"),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -29,11 +29,12 @@ from platforms import InstagramBot, TelegramBot
 import telebot
 from telebot.types import Message
 
+
 class KODA7Agent:
     """الوكيل الرئيسي KODA-7"""
 
     def __init__(self):
-        self.bot = telebot.TeleBot(Config.BOT_TOKEN, parse_mode='HTML')
+        self.bot = telebot.TeleBot(Config.BOT_TOKEN, parse_mode="HTML")
         self.chat_id = Config.CHAT_ID
         self.platforms: Dict[str, Any] = {}
         self._running = False
@@ -57,7 +58,7 @@ class KODA7Agent:
     def _setup_handlers(self):
         """إعداد معالجات أوامر Telegram"""
 
-        @self.bot.message_handler(commands=['start'])
+        @self.bot.message_handler(commands=["start"])
         def handle_start(message: Message):
             """أمر البداية"""
             user_id = str(message.from_user.id)
@@ -84,7 +85,7 @@ class KODA7Agent:
             db.add_message(user_id, "user", "/start")
             db.add_message(user_id, "assistant", welcome)
 
-        @self.bot.message_handler(commands=['help'])
+        @self.bot.message_handler(commands=["help"])
         def handle_help(message: Message):
             """المساعدة"""
             help_text = """📖 <b>دليل استخدام KODA-7</b>
@@ -108,15 +109,16 @@ class KODA7Agent:
 <code>/logs</code> - آخر 20 سجل"""
             self.bot.reply_to(message, help_text)
 
-        @self.bot.message_handler(commands=['login'])
+        @self.bot.message_handler(commands=["login"])
         def handle_login(message: Message):
             """تسجيل الدخول إلى منصة"""
             user_id = str(message.from_user.id)
             parts = message.text.split(maxsplit=3)
 
             if len(parts) < 3:
-                self.bot.reply_to(message, "❌ الاستخدام: /login &lt;platform&gt; &lt;username&gt; [password]
-أو: /login telegram &lt;phone&gt;")
+                msg = """❌ الاستخدام: /login &lt;platform&gt; &lt;username&gt; [password]
+أو: /login telegram &lt;phone&gt;"""
+                self.bot.reply_to(message, msg)
                 return
 
             platform = parts[1].lower()
@@ -140,7 +142,10 @@ class KODA7Agent:
 
             elif platform == "instagram":
                 if len(parts) < 4:
-                    self.bot.reply_to(message, "❌ الاستخدام: /login instagram &lt;username&gt; &lt;password&gt;")
+                    self.bot.reply_to(
+                        message,
+                        "❌ الاستخدام: /login instagram &lt;username&gt; &lt;password&gt;"
+                    )
                     return
 
                 username = parts[2]
@@ -151,24 +156,38 @@ class KODA7Agent:
                     self.bot.reply_to(message, "❌ منصة Instagram غير متاحة")
                     return
 
-                self.bot.reply_to(message, f"🔐 جاري تسجيل الدخول إلى Instagram كـ {username}...")
+                self.bot.reply_to(
+                    message,
+                    f"🔐 جاري تسجيل الدخول إلى Instagram كـ {username}..."
+                )
 
                 result = bot_instance.login(username, password)
                 self.bot.reply_to(message, result["message"])
 
                 if not result["success"]:
-                    db.add_log("ERROR", f"Instagram login failed for {username}", "agent", result["message"])
+                    db.add_log(
+                        "ERROR",
+                        f"Instagram login failed for {username}",
+                        "agent",
+                        result["message"]
+                    )
             else:
-                self.bot.reply_to(message, f"❌ المنصة '{platform}' غير مدعومة. المنصات المتاحة: instagram, telegram")
+                self.bot.reply_to(
+                    message,
+                    f"❌ المنصة '{platform}' غير مدعومة. المنصات المتاحة: instagram, telegram"
+                )
 
-        @self.bot.message_handler(commands=['verify'])
+        @self.bot.message_handler(commands=["verify"])
         def handle_verify(message: Message):
             """التحقق من رمز Telegram"""
             user_id = str(message.from_user.id)
             parts = message.text.split(maxsplit=3)
 
             if len(parts) < 3:
-                self.bot.reply_to(message, "❌ الاستخدام: /verify telegram &lt;code&gt; [password]")
+                self.bot.reply_to(
+                    message,
+                    "❌ الاستخدام: /verify telegram &lt;code&gt; [password]"
+                )
                 return
 
             platform = parts[1].lower()
@@ -182,7 +201,9 @@ class KODA7Agent:
             # التحقق من وجود عملية معلقة
             pending = db.get_pending(user_id, "telegram")
             if not pending or pending["step"] not in ["phone_sent", "code_sent"]:
-                self.bot.reply_to(message, "❌ لا توجد عملية تسجيل دخول معلقة. استخدم /login telegram &lt;phone&gt; أولاً")
+                msg = """❌ لا توجد عملية تسجيل دخول معلقة.
+استخدم /login telegram &lt;phone&gt; أولاً"""
+                self.bot.reply_to(message, msg)
                 return
 
             bot_instance = self.platforms.get("telegram")
@@ -200,14 +221,17 @@ class KODA7Agent:
             else:
                 db.add_log("ERROR", "Telegram verification failed", "agent", result["message"])
 
-        @self.bot.message_handler(commands=['task'])
+        @self.bot.message_handler(commands=["task"])
         def handle_task(message: Message):
             """إضافة مهمة يدوية"""
             user_id = str(message.from_user.id)
             parts = message.text.split(maxsplit=3)
 
             if len(parts) < 3:
-                self.bot.reply_to(message, "❌ الاستخدام: /task &lt;platform&gt; &lt;action&gt; [params_json]")
+                self.bot.reply_to(
+                    message,
+                    "❌ الاستخدام: /task &lt;platform&gt; &lt;action&gt; [params_json]"
+                )
                 return
 
             platform = parts[1].lower()
@@ -221,31 +245,31 @@ class KODA7Agent:
                 except json.JSONDecodeError:
                     # تحليل key=value pairs
                     for pair in parts[3].split():
-                        if '=' in pair:
-                            k, v = pair.split('=', 1)
+                        if "=" in pair:
+                            k, v = pair.split("=", 1)
                             params[k] = v
 
             task_id = db.add_task(platform, action, params)
 
             if task_id > 0:
-                self.bot.reply_to(message, f"✅ تمت إضافة المهمة #{task_id}
-المنصة: {platform}
-الإجراء: {action}")
+                msg = f"✅ تمت إضافة المهمة #{task_id}\nالمنصة: {platform}\nالإجراء: {action}"
+                self.bot.reply_to(message, msg)
                 logger.info(f"Task {task_id} added by user {user_id}")
             else:
                 self.bot.reply_to(message, "❌ فشل إضافة المهمة")
 
-        @self.bot.message_handler(commands=['cron'])
+        @self.bot.message_handler(commands=["cron"])
         def handle_cron(message: Message):
             """إدارة المهام المجدولة"""
             user_id = str(message.from_user.id)
             parts = message.text.split(maxsplit=1)
 
             if len(parts) < 2:
-                self.bot.reply_to(message, "❌ الاستخدام:
+                msg = """❌ الاستخدام:
 /cron add "&lt;expression&gt;" "&lt;command&gt;" platform=&lt;platform&gt;
 /cron list
-/cron remove &lt;id&gt;")
+/cron remove &lt;id&gt;"""
+                self.bot.reply_to(message, msg)
                 return
 
             subcommand = parts[1].split()[0].lower()
@@ -254,33 +278,31 @@ class KODA7Agent:
                 # /cron add "0 9 * * *" "post morning" platform=instagram
                 rest = parts[1][4:].strip()
 
-                # استخراج التعبير بين علامتي التنصيص
-                try:
-                    # محاولة استخدام AI لفهم الأمر
-                    parsed = ai_engine.generate_cron_params(rest)
+                # محاولة استخدام AI لفهم الأمر
+                parsed = ai_engine.generate_cron_params(rest)
 
-                    if "error" in parsed:
-                        self.bot.reply_to(message, f"❌ فشل تحليل الأمر: {parsed['error']}")
-                        return
+                if "error" in parsed:
+                    self.bot.reply_to(message, f"❌ فشل تحليل الأمر: {parsed['error']}")
+                    return
 
-                    cron_expr = parsed.get("cron_expr")
-                    platform = parsed.get("platform", "instagram")
-                    action = parsed.get("action", "post_photo")
-                    task_params = parsed.get("params", {})
+                cron_expr = parsed.get("cron_expr")
+                platform = parsed.get("platform", "instagram")
+                action = parsed.get("action", "post_photo")
+                task_params = parsed.get("params", {})
 
-                    job_id = db.add_cron_job(cron_expr, platform, action, task_params)
+                job_id = db.add_cron_job(cron_expr, platform, action, task_params)
 
-                    if job_id > 0:
-                        self.bot.reply_to(message, f"📌 تمت إضافة المهمة المجدولة #{job_id}
-التعبير: <code>{cron_expr}</code>
-المنصة: {platform}
-الإجراء: {action}")
-                        logger.info(f"Cron job {job_id} added")
-                    else:
-                        self.bot.reply_to(message, "❌ فشل إضافة المهمة المجدولة")
-
-                except Exception as e:
-                    self.bot.reply_to(message, f"❌ خطأ: {str(e)}")
+                if job_id > 0:
+                    msg = (
+                        f"📌 تمت إضافة المهمة المجدولة #{job_id}\n"
+                        f"التعبير: <code>{cron_expr}</code>\n"
+                        f"المنصة: {platform}\n"
+                        f"الإجراء: {action}"
+                    )
+                    self.bot.reply_to(message, msg)
+                    logger.info(f"Cron job {job_id} added")
+                else:
+                    self.bot.reply_to(message, "❌ فشل إضافة المهمة المجدولة")
 
             elif subcommand == "list":
                 jobs = db.get_active_cron_jobs()
@@ -288,17 +310,11 @@ class KODA7Agent:
                     self.bot.reply_to(message, "📋 لا توجد مهام مجدولة نشطة")
                     return
 
-                text = "📋 <b>المهام المجدولة:</b>
-
-"
+                text = "📋 <b>المهام المجدولة:</b>\n\n"
                 for job in jobs:
-                    text += f"<b>#{job['id']}</b> | <code>{job['cron_expr']}</code>
-"
-                    text += f"المنصة: {job['platform']} | الإجراء: {job['action']}
-"
-                    text += f"آخر تشغيل: {job['last_run'] or 'لم يُشغل'}
-
-"
+                    text += f"<b>#{job['id']}</b> | <code>{job['cron_expr']}</code>\n"
+                    text += f"المنصة: {job['platform']} | الإجراء: {job['action']}\n"
+                    text += f"آخر تشغيل: {job['last_run'] or 'لم يُشغل'}\n\n"
 
                 self.bot.reply_to(message, text)
 
@@ -313,31 +329,27 @@ class KODA7Agent:
                     self.bot.reply_to(message, "❌ الاستخدام: /cron remove &lt;id&gt;")
 
             else:
-                self.bot.reply_to(message, "❌ الأمر الفرعي غير معروف. استخدم: add, list, remove")
+                self.bot.reply_to(
+                    message,
+                    "❌ الأمر الفرعي غير معروف. استخدم: add, list, remove"
+                )
 
-        @self.bot.message_handler(commands=['status'])
+        @self.bot.message_handler(commands=["status"])
         def handle_status(message: Message):
             """عرض حالة المنصات"""
-            text = "📊 <b>حالة المنصات:</b>
-
-"
+            text = "📊 <b>حالة المنصات:</b>\n\n"
 
             for name, bot in self.platforms.items():
                 status = "✅ متصل" if bot.check_session() else "❌ غير متصل"
                 user = bot.current_user or "غير مسجل"
                 actions = ", ".join(bot.get_supported_actions()[:5])
-                text += f"<b>{name.upper()}</b>: {status}
-"
-                text += f"المستخدم: {user}
-"
-                text += f"الإجراءات: {actions}...
-
-"
+                text += f"<b>{name.upper()}</b>: {status}\n"
+                text += f"المستخدم: {user}\n"
+                text += f"الإجراءات: {actions}...\n\n"
 
             # عدد المهام المعلقة
             pending = db.get_pending_tasks(limit=100)
-            text += f"<b>المهام المعلقة:</b> {len(pending)}
-"
+            text += f"<b>المهام المعلقة:</b> {len(pending)}\n"
 
             # عدد المهام المجدولة
             cron_jobs = db.get_active_cron_jobs()
@@ -345,7 +357,7 @@ class KODA7Agent:
 
             self.bot.reply_to(message, text)
 
-        @self.bot.message_handler(commands=['logs'])
+        @self.bot.message_handler(commands=["logs"])
         def handle_logs(message: Message):
             """عرض السجلات"""
             logs = db.get_logs(limit=20)
@@ -353,16 +365,11 @@ class KODA7Agent:
                 self.bot.reply_to(message, "📋 لا توجد سجلات")
                 return
 
-            text = "📜 <b>آخر السجلات:</b>
-
-"
+            text = "📜 <b>آخر السجلات:</b>\n\n"
             for log in logs:
                 emoji = "🔴" if log["level"] == "ERROR" else "🟡" if log["level"] == "WARNING" else "🟢"
-                text += f"{emoji} <b>{log['level']}</b> | {log['created_at']}
-"
-                text += f"{log['message'][:100]}
-
-"
+                text += f"{emoji} <b>{log['level']}</b> | {log['created_at']}\n"
+                text += f"{log['message'][:100]}\n\n"
 
             self.bot.reply_to(message, text)
 
@@ -400,16 +407,26 @@ class KODA7Agent:
 
                 bot_instance = self.platforms.get(platform_name)
                 if not bot_instance:
-                    self.bot.reply_to(message, f"❌ المنصة '{platform_name}' غير متاحة حاليًا")
+                    self.bot.reply_to(
+                        message,
+                        f"❌ المنصة '{platform_name}' غير متاحة حاليًا"
+                    )
                     return
 
                 # التحقق من تسجيل الدخول (إذا لزم)
                 if action != "login" and not bot_instance.check_session():
-                    self.bot.reply_to(message, f"⚠️ أنت غير مسجل الدخول إلى {platform_name}. استخدم: /login {platform_name} ...")
+                    msg = (
+                        f"⚠️ أنت غير مسجل الدخول إلى {platform_name}. "
+                        f"استخدم: /login {platform_name} ..."
+                    )
+                    self.bot.reply_to(message, msg)
                     return
 
                 # تنفيذ الإجراء
-                self.bot.reply_to(message, f"⚙️ جاري تنفيذ: {action} على {platform_name}...")
+                self.bot.reply_to(
+                    message,
+                    f"⚙️ جاري تنفيذ: {action} على {platform_name}..."
+                )
 
                 result = bot_instance.execute(action, params)
 
@@ -417,7 +434,12 @@ class KODA7Agent:
                     self.bot.reply_to(message, f"✅ {result.get('message', 'تم التنفيذ')}")
                 else:
                     self.bot.reply_to(message, f"❌ {result.get('message', 'فشل التنفيذ')}")
-                    db.add_log("ERROR", f"Action failed: {action} on {platform_name}", "agent", result.get("message"))
+                    db.add_log(
+                        "ERROR",
+                        f"Action failed: {action} on {platform_name}",
+                        "agent",
+                        result.get("message")
+                    )
             else:
                 # محادثة عامة
                 response = ai_engine.chat(user_id, user_input)
@@ -444,7 +466,11 @@ class KODA7Agent:
 
                     bot_instance = self.platforms.get(platform)
                     if not bot_instance:
-                        db.update_task(task_id, "failed", f"Platform {platform} not available")
+                        db.update_task(
+                            task_id,
+                            "failed",
+                            f"Platform {platform} not available"
+                        )
                         continue
 
                     try:
@@ -454,18 +480,36 @@ class KODA7Agent:
                             session = db.get_session(platform)
                             if session and session["credentials"]:
                                 creds = session["credentials"]
-                                if platform == "instagram" and "password_hint" in creds:
+                                if (
+                                    platform == "instagram"
+                                    and "password_hint" in creds
+                                ):
                                     # لا يمكننا إعادة تسجيل الدخول بدون كلمة المرور
-                                    db.update_task(task_id, "failed", "Session expired and cannot auto-relogin without password")
-                                    self._send_notification(f"⚠️ مهمة #{task_id} فشلت: انتهت جلسة {platform}. يرجى تسجيل الدخول مجددًا.")
+                                    db.update_task(
+                                        task_id,
+                                        "failed",
+                                        "Session expired and cannot auto-relogin without password"
+                                    )
+                                    self._send_notification(
+                                        f"⚠️ مهمة #{task_id} فشلت: انتهت جلسة {platform}. "
+                                        "يرجى تسجيل الدخول مجددًا."
+                                    )
                                     continue
                                 elif platform == "telegram":
                                     bot_instance.login()
                                     if not bot_instance.check_session():
-                                        db.update_task(task_id, "failed", "Telegram session expired")
+                                        db.update_task(
+                                            task_id,
+                                            "failed",
+                                            "Telegram session expired"
+                                        )
                                         continue
                             else:
-                                db.update_task(task_id, "failed", "No active session")
+                                db.update_task(
+                                    task_id,
+                                    "failed",
+                                    "No active session"
+                                )
                                 continue
 
                         # تنفيذ المهمة
@@ -476,11 +520,24 @@ class KODA7Agent:
                             logger.info(f"Task {task_id} completed successfully")
                         else:
                             if retries >= Config.MAX_RETRIES - 1:
-                                db.update_task(task_id, "failed", result.get("message", "Unknown error"))
-                                self._send_notification(f"❌ مهمة #{task_id} فشلت نهائيًا: {result.get('message')}")
+                                db.update_task(
+                                    task_id,
+                                    "failed",
+                                    result.get("message", "Unknown error")
+                                )
+                                self._send_notification(
+                                    f"❌ مهمة #{task_id} فشلت نهائيًا: {result.get('message')}"
+                                )
                             else:
-                                db.update_task(task_id, "pending", result.get("message"))
-                                logger.warning(f"Task {task_id} failed, will retry ({retries + 1}/{Config.MAX_RETRIES})")
+                                db.update_task(
+                                    task_id,
+                                    "pending",
+                                    result.get("message")
+                                )
+                                logger.warning(
+                                    f"Task {task_id} failed, will retry "
+                                    f"({retries + 1}/{Config.MAX_RETRIES})"
+                                )
 
                     except Exception as e:
                         error_msg = str(e)
@@ -518,8 +575,9 @@ class KODA7Agent:
 
         # إرسال إشعار بدء التشغيل
         try:
-            self._send_notification("🚀 <b>KODA-7 Started</b>
-الوكيل يعمل الآن وينتظر الأوامر.")
+            self._send_notification(
+                "🚀 <b>KODA-7 Started</b>\nالوكيل يعمل الآن وينتظر الأوامر."
+            )
         except Exception as e:
             logger.warning(f"Could not send startup notification: {e}")
 
@@ -527,7 +585,9 @@ class KODA7Agent:
         task_thread = threading.Thread(target=self._task_worker, daemon=True)
         task_thread.start()
 
-        scheduler_thread = threading.Thread(target=self._scheduler_worker, daemon=True)
+        scheduler_thread = threading.Thread(
+            target=self._scheduler_worker, daemon=True
+        )
         scheduler_thread.start()
 
         logger.info("KODA-7 Agent started successfully")
@@ -548,6 +608,7 @@ class KODA7Agent:
         scheduler.stop()
         logger.info("KODA-7 Agent stopped")
 
+
 if __name__ == "__main__":
     agent = KODA7Agent()
     try:
@@ -559,3 +620,4 @@ if __name__ == "__main__":
         logger.exception("Fatal error")
         agent.stop()
         sys.exit(1)
+
