@@ -476183,3 +476183,38 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', po
 2026-10-23 03:26:09,029 [INFO] __main__: Scheduler worker started
 2026-10-23 03:26:09,030 [INFO] scheduler: Task scheduler started
 2026-10-23 03:26:09,030 [INFO] __main__: KODA-7 Agent started successfully
+2026-10-23 11:01:56,273 [INFO] db: Database initialized successfully
+2026-10-23 11:01:57,305 [INFO] telethon.crypto.aes: libssl detected, it will be used for encryption
+2026-10-23 11:01:57,570 [INFO] __main__: Platforms initialized
+2026-10-23 11:01:58,011 [INFO] __main__: Task worker started
+2026-10-23 11:01:58,012 [INFO] __main__: Scheduler worker started
+2026-10-23 11:01:58,012 [INFO] __main__: KODA-7 Agent started successfully
+2026-10-23 11:01:58,012 [INFO] scheduler: Task scheduler started
+2026-10-23 16:29:14,902 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:29:20,651 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:29:26,873 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:29:34,092 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:29:40,331 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:29:50,558 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:30:08,782 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:30:43,003 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:31:20,489 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:32:25,966 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:33:31,438 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:34:32,853 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:35:38,339 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:36:43,805 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:37:49,283 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:38:55,071 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:40:00,531 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:41:05,991 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:42:12,942 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:43:18,400 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:44:23,860 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:45:29,318 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:46:34,777 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:47:40,237 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:48:45,696 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:49:51,512 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:50:56,975 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-10-23 16:52:02,442 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 409. Description: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
