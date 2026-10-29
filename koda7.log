@@ -476867,3 +476867,10 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', po
 2026-10-28 22:11:25,347 [INFO] __main__: KODA-7 Agent started successfully
 2026-10-29 01:10:42,598 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 502. Description: Bad Gateway
 2026-10-29 01:10:43,939 [ERROR] TeleBot: Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 502. Description: Bad Gateway
+2026-10-29 04:26:23,706 [INFO] db: Database initialized successfully
+2026-10-29 04:26:24,180 [INFO] telethon.crypto.aes: libssl detected, it will be used for encryption
+2026-10-29 04:26:24,359 [INFO] __main__: Platforms initialized
+2026-10-29 04:26:24,882 [INFO] __main__: Task worker started
+2026-10-29 04:26:24,882 [INFO] __main__: Scheduler worker started
+2026-10-29 04:26:24,882 [INFO] __main__: KODA-7 Agent started successfully
+2026-10-29 04:26:24,882 [INFO] scheduler: Task scheduler started
