@@ -477307,3 +477307,58 @@ requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', po
 2026-11-02 04:30:11,778 [INFO] __main__: Scheduler worker started
 2026-11-02 04:30:11,778 [INFO] __main__: KODA-7 Agent started successfully
 2026-11-02 04:30:11,778 [INFO] scheduler: Task scheduler started
+2026-11-02 14:48:01,536 [INFO] db: Database initialized successfully
+2026-11-02 14:48:02,432 [INFO] telethon.crypto.aes: libssl detected, it will be used for encryption
+2026-11-02 14:48:02,686 [INFO] __main__: Platforms initialized
+2026-11-02 14:48:03,021 [INFO] __main__: Task worker started
+2026-11-02 14:48:03,021 [INFO] __main__: Scheduler worker started
+2026-11-02 14:48:03,021 [INFO] __main__: KODA-7 Agent started successfully
+2026-11-02 14:48:03,021 [INFO] scheduler: Task scheduler started
+2026-11-02 15:10:34,180 [INFO] platforms.instagram: Attempting fresh login for 1o.2_2
+2026-11-02 15:10:35,662 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/graphql_www (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:10:39,365 [INFO] instagrapi: https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.process_client_data_and_redirect/
+2026-11-02 15:10:40,795 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.process_client_data_and_redirect/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:10:45,087 [INFO] instagrapi: https://b.i.instagram.com/api/v1/attestation/create_android_keystore/
+2026-11-02 15:10:45,687 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/attestation/create_android_keystore/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:10:50,112 [INFO] instagrapi: https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.caa.login.oauth.token.fetch.async/
+2026-11-02 15:10:50,257 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.caa.login.oauth.token.fetch.async/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:10:53,719 [INFO] instagrapi: https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.async.send_login_request/
+2026-11-02 15:11:07,180 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.async.send_login_request/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:10,838 [INFO] instagrapi: https://i.instagram.com/api/v1/launcher/sync/
+2026-11-02 15:11:11,143 [INFO] private_request: 1o.2_2 [200] POST https://i.instagram.com/api/v1/launcher/sync/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:13,627 [INFO] instagrapi: https://i.instagram.com/api/v1/accounts/login/
+2026-11-02 15:11:13,724 [INFO] private_request: 1o.2_2 [400] POST https://i.instagram.com/api/v1/accounts/login/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:17,265 [INFO] instagrapi: https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.process_client_data_and_redirect/
+2026-11-02 15:11:17,851 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.process_client_data_and_redirect/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:20,457 [INFO] instagrapi: https://b.i.instagram.com/api/v1/attestation/create_android_keystore/
+2026-11-02 15:11:21,022 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/attestation/create_android_keystore/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:24,407 [INFO] instagrapi: https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.caa.login.oauth.token.fetch.async/
+2026-11-02 15:11:24,544 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.caa.login.oauth.token.fetch.async/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:29,054 [INFO] instagrapi: https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.async.send_login_request/
+2026-11-02 15:11:37,827 [INFO] private_request: 1o.2_2 [200] POST https://b.i.instagram.com/api/v1/bloks/async_action/com.bloks.www.bloks.caa.login.async.send_login_request/ (449.0.0.52.84, Google/google Pixel 8 Pro)
+2026-11-02 15:11:37,827 [ERROR] platforms.instagram: Unexpected login error for 1o.2_2
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/instagrapi/mixins/private.py", line 536, in _send_private_request
+    response.raise_for_status()
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error:  for url: https://i.instagram.com/api/v1/accounts/login/
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/ia2/ia2/platforms/instagram.py", line 89, in login
+    self.client.login(username, password)
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/instagrapi/mixins/auth.py", line 832, in login
+    return self.login_legacy(verification_code=verification_code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/instagrapi/mixins/auth.py", line 926, in login_legacy
+    logged = self.private_request("accounts/login/", data, login=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/instagrapi/mixins/private.py", line 757, in private_request
+    raise e
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/instagrapi/mixins/private.py", line 738, in private_request
+    self._send_private_request(endpoint, **kwargs)
+  File "/opt/hostedtoolcache/Python/3.11.17/x64/lib/python3.11/site-packages/instagrapi/mixins/private.py", line 638, in _send_private_request
+    raise ClientNeedsUpgradeError(**dict(last_json, response=e.response))
+instagrapi.exceptions.ClientNeedsUpgradeError: Your version of Instagram is out of date. Please upgrade your app to log in to Instagram.
