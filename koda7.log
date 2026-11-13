@@ -478983,3 +478983,38 @@ Traceback (most recent call last):
 telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized
 2026-11-13 05:07:56,370 [INFO] scheduler: Task scheduler stopped
 2026-11-13 05:07:56,370 [INFO] __main__: KODA-7 Agent stopped
+2026-11-13 13:56:34,563 [INFO] db: Database initialized successfully
+2026-11-13 13:56:35,347 [INFO] telethon.crypto.aes: libssl detected, it will be used for encryption
+2026-11-13 13:56:35,507 [INFO] __main__: Platforms initialized
+2026-11-13 13:56:37,350 [ERROR] __main__: Failed to send notification: A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized
+2026-11-13 13:56:37,351 [INFO] __main__: Task worker started
+2026-11-13 13:56:37,351 [INFO] __main__: Scheduler worker started
+2026-11-13 13:56:37,351 [INFO] scheduler: Task scheduler started
+2026-11-13 13:56:37,351 [INFO] __main__: KODA-7 Agent started successfully
+2026-11-13 13:56:37,459 [ERROR] __main__: Bot polling error: A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized
+2026-11-13 13:56:37,459 [INFO] scheduler: Task scheduler stopped
+2026-11-13 13:56:37,459 [ERROR] __main__: Fatal error
+Traceback (most recent call last):
+  File "/home/runner/work/ia2/ia2/agent.py", line 615, in <module>
+    agent.start()
+  File "/home/runner/work/ia2/ia2/agent.py", line 598, in start
+    self.bot.polling(none_stop=True, interval=1, timeout=60)
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/telebot/__init__.py", line 1255, in polling
+    logger.info('Starting your bot with username: [@%s]', self.user.username)
+                                                          ^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/telebot/__init__.py", line 314, in user
+    self._user = self.get_me()
+                 ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/telebot/__init__.py", line 1442, in get_me
+    apihelper.get_me(self.token)
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 218, in get_me
+    return _make_request(token, method_url)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 182, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/telebot/apihelper.py", line 211, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized
+2026-11-13 13:56:37,461 [INFO] scheduler: Task scheduler stopped
+2026-11-13 13:56:37,461 [INFO] __main__: KODA-7 Agent stopped
